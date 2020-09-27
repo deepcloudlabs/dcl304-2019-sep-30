@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Exercise #2: Study stream of data...</title>
+    <script type="application/javascript"
+            src="node_modules/rx/dist/rx.all.js"></script>
+    <script type="application/javascript"
+            src="node_modules/rx-dom/dist/rx.dom.js"></script>
+    <script type="application/javascript">
+        window.onload = () => {
+            Rx.DOM.get("resources/movies.json")
+                .subscribe(data => {
+                    let movies = JSON.parse(data.response);
+                    let obervableMovies = Rx.Observable.from(movies);
+                    let fun1 = async (movie) => console.log(movie.title) ;
+                    let fun2 = async (movie) => console.log(movie.title);
+                    obervableMovies.subscribe( fun1 );
+                    obervableMovies.subscribe( fun2 );
+                });
+        };
+    </script>
+</head>
+<body>
+
+</body>
+</html>

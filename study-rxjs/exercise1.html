@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style type="text/css">
+        .box {
+            width: 256px;
+            height: 256px;
+            background-color: darkblue;
+        }
+    </style>
+    <script type="application/javascript"
+            src="node_modules/rx/dist/rx.all.js"></script>
+    <script type="application/javascript">
+        window.onload = ()=>{
+               let counter = 1;
+               let counterH1 = document.querySelector("#counter1");
+               let counterH2 = document.querySelector("#counter2");
+               Rx.Observable.fromEvent(
+                  document.querySelector(".box"),
+                  'click'
+               ).debounce(1000).subscribe( event => {
+                   console.log(event.clientX,event.clientY);
+               })
+                let observable = Rx.Observable.fromEvent(
+                    document.querySelector("#btn1"),
+                    'click'
+                );
+
+            observable.subscribe( event => {
+                    setTimeout( () => {
+                        ++counter;
+                        counterH1.innerHTML = counter;
+                    },2000);
+                });
+            observable.subscribe( event => {
+                    counterH2.innerHTML = counter;
+                });
+
+        };
+    </script>
+    <meta charset="UTF-8">
+    <title>Exercise #1: Study stream of events...</title>
+</head>
+<body>
+    <button id="btn1">Click me!</button>
+    <p/>
+    <h1 id="counter1"></h1>
+    <p/>
+    <h1 id="counter2"></h1>
+    <div class="box">
+    </div>
+</body>
+</html>
